@@ -1,0 +1,27 @@
+version: '2.4'
+
+services:
+  python:
+    build: pythonClient/docker/
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./pythonClient:/srv/app
+    working_dir: /srv/app
+    tty: true
+
+  node:
+    image: node:18-alpine
+    working_dir: /srv/app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./nodeServer:/srv/app
+    entrypoint: [ node, server.js ]
+
+  protoc:
+    build: protos/docker
+    working_dir: /srv/app
+    volumes:
+      - ./protos:/srv/app
+    tty: true

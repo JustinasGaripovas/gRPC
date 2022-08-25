@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package healthCheck;
+
+option go_package = "./your-package-name";
+
+service HealthCheck {
+  rpc PingPong (Ping) returns (Pong) {}
+  rpc PingsPong (stream Ping) returns (Pong) {}
+  rpc PingPongs (Ping) returns (stream Pong) {}
+  rpc PingsPongs (stream Ping) returns (stream Pong) {}
+}
+
+message Ping {
+  string text = 1;
+}
+
+message Pong {
+  string text = 1;
+}
